@@ -173,7 +173,9 @@ const gwcn = {
 
 
             resolved = resolved.replace(new RegExp('\\' + path.sep, 'g'), '/'); //Fix #1
-            code = code.replace(match, `require('${resolved}')`);
+            let parsed = path.parse(resolved);
+            let requireString = `${parsed.dir}/${parsed.name}`;
+            code = code.replace(match, `require('${requireString}')`);
 
             if (this.cache[outPath]) {
                 continue;
